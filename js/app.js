@@ -1,7 +1,8 @@
 /*
- * Create a list that holds all of your cards
+ *           list of selectors and variable declarations
  */
 const cardsList = document.querySelectorAll('.card .fa');
+const deck = document.querySelector('.deck');
 const counter = document.querySelector('.moves');
 const star = document.querySelector('.fa-star');
 const stars = document.querySelector('.stars');
@@ -56,11 +57,15 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-const deck = document.querySelector('.deck');
-reload.addEventListener('click', function () {
-    window.location.reload();
-})
+/*
+    * events listeners*
+*/
+reload.addEventListener('click', pageReload);
 deck.addEventListener('click', checkMatch);
+
+/*
+    * functions*
+*/
 
 function checkMatch(e) {
     let card = e.target;
@@ -131,8 +136,10 @@ function gameEnd() {
     if (matchCounter === 8) {
         finalPanel.classList.remove('visable');
         showScore.innerHTML = moves;
-        reloadBtn.addEventListener('click', function () {
-            window.location.reload();
-        });
+        reloadBtn.addEventListener('click', pageReload);
     }
+}
+
+function pageReload() {
+        window.location.reload();
 }
