@@ -32,6 +32,23 @@ h1 {
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
 }
+/*
+ * Styles for the winner message
+ */
+
+ .game-end {
+     position: absolute;
+     background: #ffffff url('../img/geometry2.png');
+     box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.1);
+     text-align: center;
+     padding: 15px 100px;
+     border-radius: 10px; 
+     z-index: 3;
+ }
+
+ .visable {
+     visibility: hidden;
+ }
 
 /*
  * Styles for the deck of cards

@@ -5,11 +5,16 @@ const cardsList = document.querySelectorAll('.card .fa');
 const counter = document.querySelector('.moves');
 const star = document.querySelector('.fa-star');
 const stars = document.querySelector('.stars');
+const reload = document.querySelector('.restart');
+const finalPanel = document.querySelector('.game-end');
+const reloadBtn = document.querySelector('.reloadButton');
+const showScore = document.querySelector('.show-score');
 
 let cardsArray = Array.from(cardsList);
 let click1 = {};
 let click2 = {};
 let moves = 0;
+let matchCounter = 0;
 
 /*
  * Display the cards on the page
@@ -52,7 +57,9 @@ function shuffle(array) {
  */
 
 const deck = document.querySelector('.deck');
-
+reload.addEventListener('click', function () {
+    window.location.reload();
+})
 deck.addEventListener('click', checkMatch);
 
 function checkMatch(e) {
@@ -80,6 +87,7 @@ function checkMatch(e) {
     counter.innerHTML = moves;
 
     checkStars();
+    gameEnd();
 }
 
 function matched() {
@@ -92,6 +100,8 @@ function matched() {
 
     click1 = {};
     click2 = {};
+
+    matchCounter += 1;
 }
 
 function hideCards() {
@@ -105,7 +115,7 @@ function hideCards() {
 }
 
 function checkStars() {
-    if(moves >= 15) {
+    if (moves >= 15) {
         stars.innerHTML = '<li><i class="fa fa-star"></i><li><i class="fa fa-star"></i>'
 
         if (moves > 20) {
@@ -114,5 +124,15 @@ function checkStars() {
                 stars.innerHTML = '';
             }
         }
-    }   
+    }
+}
+
+function gameEnd() {
+    if (matchCounter === 8) {
+        finalPanel.classList.remove('visable');
+        showScore.innerHTML = moves;
+        reloadBtn.addEventListener('click', function () {
+            window.location.reload();
+        });
+    }
 }
