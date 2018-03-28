@@ -77,7 +77,7 @@ function checkMatch(e) {
     if (!click1.className) {
         click1 = card;
         card.classList.add('open', 'show');
-    } else {
+    } else if (!click2.className) {
         click2 = card;
         card.classList.add('open', 'show');
     }
@@ -125,9 +125,7 @@ function checkStars() {
 
         if (moves > 20) {
             stars.innerHTML = '<li><i class="fa fa-star"></i>';
-            if (moves > 30) {
-                stars.innerHTML = '';
-            }
+
         }
     }
 }
