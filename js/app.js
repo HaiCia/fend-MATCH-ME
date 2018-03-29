@@ -10,13 +10,23 @@ const reload = document.querySelector('.restart');
 const finalPanel = document.querySelector('.game-end');
 const reloadBtn = document.querySelector('.reloadButton');
 const showScore = document.querySelector('.show-score');
+const sec = document.querySelector('.sec');
+const min = document.querySelector('.min');
+const showTimeMin = document.querySelector('.show-time-min');
+const showTimeSec = document.querySelector('.show-time-sec');
+const showStars = document.querySelector('.show-stars');
+
 
 let cardsArray = Array.from(cardsList);
 let click1 = {};
 let click2 = {};
-let moves = 0;
-let matchCounter = 0;
 
+let game = {
+    moves: 0,
+    matchCounter: 0,
+    secContent: sec.textContent,
+    intervalsSet: window.setInterval(timer, 1000)
+}
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -24,6 +34,7 @@ let matchCounter = 0;
  *   - add each card's HTML to the page
  */
 cardsArray = shuffle(cardsArray);
+
 for (let i = 0; i < cardsArray.length; i++) {
     cardsList[i].outerHTML = cardsArray[i].outerHTML;
 };
@@ -77,6 +88,7 @@ function checkMatch(e) {
     if (!click1.className) {
         click1 = card;
         card.classList.add('open', 'show');
+        
     } else if (!click2.className) {
         click2 = card;
         card.classList.add('open', 'show');
@@ -88,9 +100,10 @@ function checkMatch(e) {
         hideCards();
     }
 
-    moves += 1;
-    counter.innerHTML = moves;
+    game.moves += 1;
+    counter.innerHTML = game.moves;
 
+    
     checkStars();
     gameEnd();
 }
@@ -106,7 +119,7 @@ function matched() {
     click1 = {};
     click2 = {};
 
-    matchCounter += 1;
+    game.matchCounter += 1;
 }
 
 function hideCards() {
@@ -120,20 +133,41 @@ function hideCards() {
 }
 
 function checkStars() {
-    if (moves >= 15) {
-        stars.innerHTML = '<li><i class="fa fa-star"></i><li><i class="fa fa-star"></i>'
+    if(game.moves < 15) {
+        stars.innerHTML = '<i class="fa fa-star"><i class="fa fa-star"><i class="fa fa-star">';
+    }
+    else if (game.moves >= 15) {
+        stars.innerHTML = '<i class="fa fa-star"><i class="fa fa-star">'
 
-        if (moves > 20) {
-            stars.innerHTML = '<li><i class="fa fa-star"></i>';
+        if (game.moves > 20) {
+            stars.innerHTML = '<i class="fa fa-star">';
 
         }
     }
 }
 
+function timer() {
+    sec.textContent = parseFloat(sec.textContent) + 1;
+
+    if(sec.textContent > 59) {
+        min.textContent = parseFloat(min.textContent) + 1;
+        sec.textContent = 0;
+    }
+}
+
+function timerStop() {
+    window.clearInterval(game.intervalsSet);
+}
+
 function gameEnd() {
-    if (matchCounter === 8) {
+    if (game.matchCounter === 8) {
         finalPanel.classList.remove('visable');
-        showScore.innerHTML = moves;
+        showScore.textContent = game.moves;
+        showTimeSec.textContent = sec.textContent;
+        showTimeMin.textContent = min.textContent;
+        showStars.innerHTML = stars.innerHTML;
+
+        timerStop();
         reloadBtn.addEventListener('click', pageReload);
     }
 }
