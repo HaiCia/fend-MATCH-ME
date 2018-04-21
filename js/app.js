@@ -69,14 +69,14 @@ function shuffle(array) {
  */
 
 /*
-    * events listeners*
-*/
+ * events listeners*
+ */
 reload.addEventListener('click', pageReload);
 deck.addEventListener('click', checkMatch);
 
 /*
-    * functions*
-*/
+ * functions*
+ */
 
 function checkMatch(e) {
     let card = e.target;
@@ -88,7 +88,7 @@ function checkMatch(e) {
     if (!click1.className) {
         click1 = card;
         card.classList.add('open', 'show');
-        
+
     } else if (!click2.className) {
         click2 = card;
         card.classList.add('open', 'show');
@@ -103,7 +103,7 @@ function checkMatch(e) {
     game.moves += 1;
     counter.innerHTML = game.moves;
 
-    
+
     checkStars();
     gameEnd();
 }
@@ -133,11 +133,11 @@ function hideCards() {
 }
 
 function checkStars() {
-    if(game.moves < 15) {
+    if (game.moves < 15) {
         stars.innerHTML = '<i class="fa fa-star"><i class="fa fa-star"><i class="fa fa-star">';
-    }
-    else if (game.moves >= 15) {
-        stars.innerHTML = '<i class="fa fa-star"><i class="fa fa-star">'
+
+    } else if (game.moves >= 15) {
+        stars.innerHTML = '<i class="fa fa-star"><i class="fa fa-star">';
 
         if (game.moves > 20) {
             stars.innerHTML = '<i class="fa fa-star">';
@@ -149,7 +149,7 @@ function checkStars() {
 function timer() {
     sec.textContent = parseFloat(sec.textContent) + 1;
 
-    if(sec.textContent > 59) {
+    if (sec.textContent > 59) {
         min.textContent = parseFloat(min.textContent) + 1;
         sec.textContent = 0;
     }
@@ -167,11 +167,11 @@ function gameEnd() {
         showTimeMin.textContent = min.textContent;
         showStars.innerHTML = stars.innerHTML;
 
-        timerStop();
         reloadBtn.addEventListener('click', pageReload);
+        timerStop();
     }
 }
 
 function pageReload() {
-        window.location.reload();
+    window.location.reload();
 }
