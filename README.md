@@ -11,7 +11,9 @@ Enjoy!
 ##Dependencies
 
 Bootstrap font-awesome.
+
 Fonts:
 Coda,
 Open sans,
+
 Plain JavaScript.
